@@ -1,12 +1,15 @@
 # EmbedOnFly
 Faster embeds for Discord.Net 1.0+ warapper
 
-Install nuget package: `Install-Package EmbedOnFly`
+Install: 
+```tex
+Install-Package Discord.Addons.EmbedTool`
+```
 
 Example Usage :
 
 ```cpp
-Embed embed = new Embed();
+EmbedTool embed = new EmbedTool();
 
 embed.MakeEmbed("red", "Example", "this is example");
 embed.SendEmbed(Context);
@@ -14,7 +17,7 @@ embed.SendEmbed(Context);
 
 Colors supported :
 
-Co | lo | rs
+Colors | to | use <3
 --- | --- | ---
 Aqua | Black | Blue
 Fuchsia | Gray | Green
