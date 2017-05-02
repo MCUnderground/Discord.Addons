@@ -1,4 +1,4 @@
-# EmbedOnFly
+# EmbedTool
 Faster embeds for Discord.Net 1.0+ warapper
 
 Install: 
@@ -6,7 +6,7 @@ Install:
 Install-Package Discord.Addons.EmbedTool
 ```
 
-Example Usage :
+Example Usage:
 
 ```cpp
 EmbedTool embed = new EmbedTool();
