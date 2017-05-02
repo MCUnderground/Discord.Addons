@@ -3,7 +3,7 @@ Faster embeds for Discord.Net 1.0+ warapper
 
 Install: 
 ```tex
-Install-Package Discord.Addons.EmbedTool`
+Install-Package Discord.Addons.EmbedTool
 ```
 
 Example Usage :
