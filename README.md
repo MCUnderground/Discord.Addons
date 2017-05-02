@@ -12,6 +12,8 @@ embed.SendEmbed(Context);
 
 Colors supported :
 
+Co | lo | rs
+--- | --- | ---
 Aqua | Black | Blue
 Fuchsia | Gray | Green
 Lime | Maroon | Navy
