@@ -10,8 +10,28 @@ namespace EmbedsOnFly
 {
     public class EmbedTool : ModuleBase
     {
-        EmbedBuilder basic;
-        EmbedFooterBuilder footer;
+        private EmbedBuilder basic;
+        private EmbedFooterBuilder footer;
+
+        private readonly IDictionary<string, Color> _paletteMap = new Dictionary<string, Color>()
+        {
+            { "aqua", new Color(0, 255, 255) },
+            { "black", new Color(0, 0, 0) },
+            { "blue", new Color(0, 0, 255) },
+            { "fuchsia", new Color(255, 0, 255) },
+            { "gray", new Color(128, 128, 128) },
+            { "green", new Color(0, 128, 0) },
+            { "lime", new Color(0, 255, 0) },
+            { "maroon", new Color(128, 0, 0) },
+            { "navy", new Color(0, 0, 128) },
+            { "olive", new Color(128, 128, 0) },
+            { "purple", new Color(128, 0, 128) },
+            { "red", new Color(255, 0, 0) },
+            { "silver", new Color(192, 192, 192) },
+            { "teal", new Color(0, 128, 128) },
+            { "white", new Color(255, 255, 255) },
+            { "yellow", new Color(255, 255, 0) },
+        };
 
         public void MakeEmbed(string color = "white", string title = null, string description = null, string imageUrl = null, string footerDescription = null, string footerImageUrl = null)
         {
@@ -25,41 +45,37 @@ namespace EmbedsOnFly
             if (footerDescription != null)
             {
                 basic.WithFooter(footer
-                     .WithText(footerDescription)
+                    .WithText(footerDescription)
                 );
             }
             if (footerImageUrl != null)
             {
                 basic.WithFooter(footer
-                     .WithIconUrl(footerImageUrl)
+                    .WithIconUrl(footerImageUrl)
                 );
             }
         }
+
         private void EmbedColor(string color)
         {
+            if (string.IsNullOrWhiteSpace(color))
+            {
+                throw new ArgumentNullException(nameof(color));
+            }
+
             basic = new EmbedBuilder();
 
-
-            if (color.ToLower() == "aqua") { basic.WithColor(new Color(0, 255, 255)); }
-            else if (color.ToLower() == "black") { basic.WithColor(new Color(0, 0, 0)); }
-            else if (color.ToLower() == "blue") { basic.WithColor(new Color(0, 0, 255)); }
-            else if (color.ToLower() == "fuchsia") { basic.WithColor(new Color(255, 0, 255)); }
-            else if (color.ToLower() == "gray") { basic.WithColor(new Color(128, 128, 128)); }
-            else if (color.ToLower() == "green") { basic.WithColor(new Color(0, 128, 0)); }
-            else if (color.ToLower() == "lime") { basic.WithColor(new Color(0, 255, 0)); }
-            else if (color.ToLower() == "maroon") { basic.WithColor(new Color(128, 0, 0)); }
-            else if (color.ToLower() == "navy") { basic.WithColor(new Color(0, 0, 128)); }
-            else if (color.ToLower() == "olive") { basic.WithColor(new Color(128, 128, 0)); }
-            else if (color.ToLower() == "purple") { basic.WithColor(new Color(128, 0, 128)); }
-            else if (color.ToLower() == "red") { basic.WithColor(new Color(255, 0, 0)); }
-            else if (color.ToLower() == "silver") { basic.WithColor(new Color(192, 192, 192)); }
-            else if (color.ToLower() == "teal") { basic.WithColor(new Color(0, 128, 128)); }
-            else if (color.ToLower() == "white") { basic.WithColor(new Color(255, 255, 255)); }
-            else if (color.ToLower() == "yellow") { basic.WithColor(new Color(255, 255, 0)); }
-            else { basic.WithColor(new Color(255, 255, 255)); }
-
+            string lookup = color.ToLower();
+            if (_paletteMap.ContainsKey(lookup))
+            {
+                basic.WithColor(_paletteMap[lookup]);
+            }
+            else
+            {
+                basic.WithColor(new Color(255, 255, 255));
+            }
         }
 
-        public async Task SendEmbed(CommandContext Context) { await Context.Channel.SendMessageAsync("", false, basic); }
+        public async Task SendEmbed(CommandContext Context) => await Context.Channel.SendMessageAsync("", false, basic);
     }
 }
